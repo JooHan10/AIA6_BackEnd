@@ -42,7 +42,8 @@ class MovieDataFetcher:
             response = requests.get(movies_url, params=params)
             if response.status_code == 200:
                 new_data = response.json().get('results', [])
-                movies_data.append(new_data)
+                page_data = response.json().get('page')                
+                movies_data.append([new_data, page_data])
         return movies_data
 #무비 출력뷰    
 # class MovieListView(APIView):
@@ -78,10 +79,12 @@ class MovieListView(APIView):
         movies_data = movie_data.fetch_movies_data()
         serialized_data = []
         for list_data in movies_data:
-            for data in list_data:
+            page = list_data[1]
+            movies = list_data[0]
+            for data in movies:
                 genre_ids = data.get('genre_ids')
                 genres = Genre.objects.filter(id__in =genre_ids)
-                genre_names = [genre.name for genre in genres]
+                genre_names = [genre.name for genre in genres]                
                 vote_average = data.get('vote_average', None)
                 release_date_str = data.get('release_date', None)
                 if data['poster_path']is not None:
@@ -100,7 +103,9 @@ class MovieListView(APIView):
                     "release_date": release_date,
                     "vote_average": vote_average,
                     "genres": genre_names,
-                    "poster_path": poster_path
+                    "poster_path": poster_path,
+                    "page": page
+                    
                 }
                 
                 serialized_data.append(movie_json)
@@ -124,7 +129,9 @@ class SaveMoviesView(APIView):
     
     def save_movie_data(self, movies_data):
         for select_data in movies_data:
-            for movie_data in select_data:
+            page = select_data[1]
+            movies = select_data[0]
+            for movie_data in movies:
                 if movie_data.get('adult') == False:
                     # genre_ids = movie_data['genre_ids']
                     # genres = Genre.objects.filter(id__in=genre_ids)
@@ -158,6 +165,7 @@ class SaveMoviesView(APIView):
                         release_date=release_date,
                         vote_average = vote_average,
                         poster_path=poster_path,
+                        page = page
                     )
                     movie.save()
                     movie.genres.set(genres)
