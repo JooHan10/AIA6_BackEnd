@@ -1,10 +1,5 @@
 from django.urls import reverse
 from rest_framework.test import APITestCase
-from rest_framework.test import APIRequestFactory
-from movies.models import Movie, Genre
-from movies.serializers import MovieSerializer
-import requests
-import random
 
 
 class MovieTest(APITestCase):

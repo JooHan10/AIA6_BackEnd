@@ -29,7 +29,6 @@ class SignUpView(APIView):
 # 회원 비활성화
 class UserDetailView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-
     # 회원 비활성화
     def delete(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
@@ -46,7 +45,6 @@ class UserDetailView(APIView):
 # 비밀번호 변경
 class ChangePasswordView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-
     def put(self, request, user_id):
         user = get_object_or_404(User, id=user_id)
         if request.user.email == user.email:
@@ -62,7 +60,6 @@ class ChangePasswordView(APIView):
 # 이메일 인증관련
 class UserActivate(APIView):
     permission_classes = [permissions.AllowAny]
-
     def get(self, request, uidb64, token):
         try:
             uid = force_str(urlsafe_base64_decode(uidb64))
@@ -93,7 +90,6 @@ class UserActivate(APIView):
 # 마이 페이지
 class MyPageView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-
     # 마이 페이지 - 회원 정보 조회
     def get(self, request, user_id):
         my_page = get_object_or_404(User, id=user_id)

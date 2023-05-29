@@ -12,7 +12,7 @@ from .movies_ai import similar_overview
 from rest_framework.pagination import PageNumberPagination
 from urllib.parse import urlparse, parse_qs
 
-# Create your views here.
+
 #api에서 무비 데이터 가져오기
 class MovieDataFetcher:
     def fetch_movies_data(self):
@@ -45,33 +45,8 @@ class MovieDataFetcher:
                 page_data = response.json().get('page')                
                 movies_data.append([new_data, page_data])
         return movies_data
-#무비 출력뷰    
-# class MovieListView(APIView):
     
-#     def get(self, request):
-#         movies = Movie.objects.all()  
-#         serialized_data = []
-        
-#         # 영화 정보 출력
-#         for movie_data in movies:
-#             genre_ids = movie_data.genres.all().values_list('id', flat=True)
-#             genres = Genre.objects.filter(id__in=genre_ids)
-#             genre_names = [genre.name for genre in genres]
-            
-                                                           
-#             movie_json = {
-#                 "id": movie_data.id,
-#                 "title": movie_data.title,
-#                 "overview": movie_data.overview,
-#                 "release_date" : movie_data.release_date,
-#                 "vote_average" : movie_data.vote_average,
-#                 "genres" : genre_names,
-#                 "poster_path" : movie_data.poster_path
-#                     }
-                    
-#             serialized_data.append(movie_json)
-                
-#         return Response(serialized_data)
+
 class MovieListView(APIView):
     
     def get(self,request):
@@ -111,7 +86,6 @@ class MovieListView(APIView):
                 serialized_data.append(movie_json)
             
         return Response(serialized_data)
-
 
 
 #csv파일 생성 및 모델에 저장 view
@@ -182,7 +156,6 @@ class MovieDetailView(APIView):
     
 #비슷한 영화 추천 view
 class SimilarMoviesView(APIView):
-    
     def post(self, request):
         csv_file_path = "movie_data.csv"
         target_movie_id = request.data.get('target_movie_id')
@@ -205,46 +178,6 @@ class SimilarMoviesView(APIView):
                 if row['id'] == str(target_movie_id):
                     return index
         return None
-
-
-# class MovieListPaginatedView(MovieListView):
-    '''
-    MovieListView의 Movie API GET을 상속받아 Pagination을 orverriding 합니다.
-    그 후, pagination 인스턴스를 생성하여 시리얼라이즈된 데이터를 pagination 처리하고, pagination된 response을 반환합니다.
-    pagination_class를 PageNumberPagination로 설정해 페이지 기준 parameter로 처리합니다.
-    
-    # API 요청 예시
-    GET /movie/?page=2
-
-    # API 응답 예시
-    {
-        "count": 1000, # 불러오는 영화의 수
-        "next": "/movies/paginated/?page=2",
-        "previous": null,
-        "results": [
-            {
-                "id": 1,
-                "title": "영화 제목",
-                "overview": "영화 개요",
-                "release_date": "2023-05-28",
-                "vote_average": 8.5,
-                "genres": ["드라마", "로맨스"],
-                "poster_path": "http://example.com/poster.jpg"
-            },
-            // 페이지네이션된 영화 목록
-        ]
-    }
-    '''
-    # pagination_class = PageNumberPagination
-
-    # def get(self, request):
-    #     inherited_instance = super().get(request)
-    #     serialized_data = inherited_instance.data
-    #     pagination_instance = self.pagination_class()
-    #     paginated_data = pagination_instance.paginate_queryset(serialized_data, request)
-    #     pagination_instance.count = len(serialized_data) # 카운트 안주니 오류가 (count = 전체 get해오는 데이터 개수)
-    #     return pagination_instance.get_paginated_response(paginated_data)
-    
 
 
 class MovieListPaginatedView(APIView):
