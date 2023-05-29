@@ -3,7 +3,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
-    # 오버뷰 비슷한 5개의 영화
+# 오버뷰 비슷한 5개의 영화
 def similar_overview(csv_file_path, target_movie_index, top_n=5):
     movie_data = []
     with open(csv_file_path, "r", newline="", encoding="utf-8") as csv_file:

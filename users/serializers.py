@@ -77,7 +77,6 @@ class SignUpSerializer(serializers.ModelSerializer):
 
         return data
 
-
     def create(self, validated_data):
         user_name = validated_data["user_name"]
         email = validated_data["email"]
