@@ -12,3 +12,4 @@ class Movie(models.Model):
     vote_average = models.FloatField(null=True, blank=True)
     genres = models.ManyToManyField(Genre)
     poster_path = models.CharField(max_length=300, null=True, blank=True)
+    page = models.IntegerField("페이지")
