@@ -69,7 +69,6 @@ DB의 랜덤한 영화들 중 6개를 랜덤으로 보여줍니다. 사용자는
     <tr>
       <td align="center"><a href="https://github.com/JooHan10"><img src="https://avatars.githubusercontent.com/u/116674496?v=4" width="100px;" alt=""/><br /><sub><b>팀장 : 이주한</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/Songjimyung"><img src="https://avatars.githubusercontent.com/u/116045723?v=4" width="100px;" alt=""/><br /><sub><b>팀원 : 송지명</b></sub></a><br /></td>
-      <td align="center"><a href="https://github.com/Jihunz123 "><img src="https://avatars.githubusercontent.com/u/126747911?v=4" width="100px;" alt=""/><br /><sub><b>팀원 : 이지훈</b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/nueeng"><img src="https://avatars.githubusercontent.com/u/127704498?v=4" width="100px;" alt=""/><br /><sub><b>팀원 : 최준영</b></sub></a><br /></td>
     <tr/>
   </tbody>
